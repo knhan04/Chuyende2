@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    android:padding="16dp"
+    tools:context=".findDoctor.SymptomActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mô tả triệu chứng của bạn"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Nhập triệu chứng tự do -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nhập triệu chứng khác"
+                android:textColor="@color/yellow"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp" />
+
+            <EditText
+                android:id="@+id/edt_custom_symptom"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:hint="Ví dụ: tê tay, mệt mỏi..."
+                android:textColorHint="#999999"
+                android:textColor="@color/white"
+                android:background="@android:color/holo_blue_light"
+                android:padding="12dp"
+                android:layout_marginBottom="24dp"
+                android:gravity="top|start" />
+
+            <!-- Danh sách triệu chứng -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn triệu chứng"
+                android:textColor="@color/yellow"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Bác sĩ gia đình -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bác sĩ gia đình"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/cb_headache"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đau Đầu"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_fever"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sốt"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_cold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cảm cúm"
+                android:textColor="@color/white"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Chuyên gia dinh dưỡng -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chuyên gia dinh dưỡng"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/cb_obesity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Béo phì"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_diabetes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiểu đường"
+                android:textColor="@color/white"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Nha sĩ -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nha sĩ"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/cb_toothache"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đau răng"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_bleeding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chảy máu chân răng"
+                android:textColor="@color/white"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Bác sĩ tim mạch -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bác sĩ tim mạch"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/cb_high_bp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Huyết áp cao"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_chest_pain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Đau tim"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/cb_breathless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khó thở"
+                android:textColor="@color/white"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Bác sĩ phẫu thuật -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bác sĩ phẫu thuật"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="4dp" />
+
+            <CheckBox
+                android:id="@+id/cb_injury"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chấn thương"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!-- Nút điều khiển -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp">
+
+        <Button
+            android:id="@+id/btn_symptom_back"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Quay lại"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:background="@android:color/holo_blue_light" />
+
+        <Button
+            android:id="@+id/btn_symptom_continue"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="@string/continue_button"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginStart="12dp" />
+
+    </LinearLayout>
+
+</LinearLayout>
