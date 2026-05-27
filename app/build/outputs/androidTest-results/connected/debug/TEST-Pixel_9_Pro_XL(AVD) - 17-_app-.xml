@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<testsuite name="com.example.healthcareapp.ExampleInstrumentedTest" tests="3" failures="0" errors="0" skipped="0" time="1.724" timestamp="2026-04-21T03:44:57" hostname="localhost">
+  <properties>
+    <property name="device" value="Pixel_9_Pro_XL(AVD) - 17" />
+    <property name="flavor" value="" />
+    <property name="project" value=":app" />
+  </properties>
+  <testcase name="useAppContext" classname="com.example.healthcareapp.ExampleInstrumentedTest" time="0.05" />
+  <testcase name="testLoginIntegration" classname="com.example.healthcareapp.IntegrationTest" time="0.656" />
+  <testcase name="testGetOrderDataIntegration" classname="com.example.healthcareapp.IntegrationTest" time="0.188" />
+</testsuite>

@@ -1,0 +1,33 @@
+04-21 10:44:23.220  7566  7589 I TestRunner: started: testGetOrderDataIntegration(com.example.healthcareapp.IntegrationTest)
+04-21 10:44:23.239  7566  7610 I okhttp.OkHttpClient: --> POST http://10.0.2.2:3000/api/auth/login
+04-21 10:44:23.239  7566  7610 I okhttp.OkHttpClient: Content-Type: application/json; charset=UTF-8
+04-21 10:44:23.240  7566  7610 I okhttp.OkHttpClient: Content-Length: 42
+04-21 10:44:23.240  7566  7610 I okhttp.OkHttpClient: Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3Njc0MzA5NiwiZXhwIjoxNzc3MzQ3ODk2fQ.HmSuPHELe2pETlgcSPVSWMlUHNOdZrDJJZMubqKys2c
+04-21 10:44:23.241  7566  7610 I okhttp.OkHttpClient: {"password":"admin123","username":"admin"}
+04-21 10:44:23.241  7566  7610 I okhttp.OkHttpClient: --> END POST (42-byte body)
+04-21 10:44:23.367  7566  7610 I okhttp.OkHttpClient: <-- 200 OK http://10.0.2.2:3000/api/auth/login (125ms)
+04-21 10:44:23.368  7566  7610 I okhttp.OkHttpClient: X-Powered-By: Express
+04-21 10:44:23.368  7566  7610 I okhttp.OkHttpClient: Access-Control-Allow-Origin: *
+04-21 10:44:23.368  7566  7610 I okhttp.OkHttpClient: Content-Type: application/json; charset=utf-8
+04-21 10:44:23.368  7566  7610 I okhttp.OkHttpClient: Content-Length: 382
+04-21 10:44:23.369  7566  7610 I okhttp.OkHttpClient: ETag: W/"17e-YPn8cen6AEjb4zuPzFVuAUV0n0Y"
+04-21 10:44:23.369  7566  7610 I okhttp.OkHttpClient: Date: Tue, 21 Apr 2026 03:44:56 GMT
+04-21 10:44:23.369  7566  7610 I okhttp.OkHttpClient: Connection: keep-alive
+04-21 10:44:23.370  7566  7610 I okhttp.OkHttpClient: Keep-Alive: timeout=5
+04-21 10:44:23.371  7566  7610 I okhttp.OkHttpClient: {"success":true,"message":"Đăng nhập thành công","data":{"user":{"id":1,"username":"admin","email":"admin@example.com","full_name":"Admin User","phone":"0901000000","role":"admin"},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3Njc0MzA5NiwiZXhwIjoxNzc3MzQ3ODk2fQ.HmSuPHELe2pETlgcSPVSWMlUHNOdZrDJJZMubqKys2c"}}
+04-21 10:44:23.371  7566  7610 I okhttp.OkHttpClient: <-- END HTTP (382-byte body)
+04-21 10:44:23.384  7566  7610 I okhttp.OkHttpClient: --> GET http://10.0.2.2:3000/api/orders?username=admin
+04-21 10:44:23.384  7566  7610 I okhttp.OkHttpClient: Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3Njc0MzA5NiwiZXhwIjoxNzc3MzQ3ODk2fQ.HmSuPHELe2pETlgcSPVSWMlUHNOdZrDJJZMubqKys2c
+04-21 10:44:23.384  7566  7610 I okhttp.OkHttpClient: --> END GET
+04-21 10:44:23.393  7566  7610 I okhttp.OkHttpClient: <-- 200 OK http://10.0.2.2:3000/api/orders?username=admin (8ms)
+04-21 10:44:23.393  7566  7610 I okhttp.OkHttpClient: X-Powered-By: Express
+04-21 10:44:23.394  7566  7610 I okhttp.OkHttpClient: Access-Control-Allow-Origin: *
+04-21 10:44:23.394  7566  7610 I okhttp.OkHttpClient: Content-Type: application/json; charset=utf-8
+04-21 10:44:23.394  7566  7610 I okhttp.OkHttpClient: Content-Length: 26
+04-21 10:44:23.394  7566  7610 I okhttp.OkHttpClient: ETag: W/"1a-s3B6blipWxCo2IriQlJeaz0uh7I"
+04-21 10:44:23.394  7566  7610 I okhttp.OkHttpClient: Date: Tue, 21 Apr 2026 03:44:56 GMT
+04-21 10:44:23.394  7566  7610 I okhttp.OkHttpClient: Connection: keep-alive
+04-21 10:44:23.395  7566  7610 I okhttp.OkHttpClient: Keep-Alive: timeout=5
+04-21 10:44:23.396  7566  7610 I okhttp.OkHttpClient: {"success":true,"data":[]}
+04-21 10:44:23.396  7566  7610 I okhttp.OkHttpClient: <-- END HTTP (26-byte body)
+04-21 10:44:23.398  7566  7589 I TestRunner: finished: testGetOrderDataIntegration(com.example.healthcareapp.IntegrationTest)

@@ -1,0 +1,6 @@
+com.example.healthcareapp.test.app-annotation-experimental-1.3.0-0 C:\Users\ADMIN\.gradle\caches\transforms-3\70bf9f25938c8cf1ad43236f29453b52\transformed\annotation-experimental-1.3.0\res
+com.example.healthcareapp.test.app-core-1.5.0-1 C:\Users\ADMIN\.gradle\caches\transforms-3\b557470dc04c72de991480bd0f37d525\transformed\core-1.5.0\res
+com.example.healthcareapp.test.app-androidTest-2 D:\CD2\HealthCareApp-master\app\build\generated\res\resValues\androidTest\debug
+com.example.healthcareapp.test.app-mergeDebugAndroidTestResources-3 D:\CD2\HealthCareApp-master\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.example.healthcareapp.test.app-mergeDebugAndroidTestResources-4 D:\CD2\HealthCareApp-master\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.example.healthcareapp.test.app-debugAndroidTest-5 D:\CD2\HealthCareApp-master\app\build\intermediates\merged_res\debugAndroidTest\mergeDebugAndroidTestResources

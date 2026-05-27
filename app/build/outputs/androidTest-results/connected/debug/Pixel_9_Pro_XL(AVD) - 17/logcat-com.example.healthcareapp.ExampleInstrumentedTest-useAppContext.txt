@@ -1,0 +1,2 @@
+04-21 10:44:22.431  7566  7589 I TestRunner: started: useAppContext(com.example.healthcareapp.ExampleInstrumentedTest)
+04-21 10:44:22.438  7566  7589 I TestRunner: finished: useAppContext(com.example.healthcareapp.ExampleInstrumentedTest)
