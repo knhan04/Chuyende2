@@ -39,7 +39,7 @@ public class RemoteDataBase {
                         callback.onFailure(new Exception(response.body().getMessage()));
                     }
                 } else {
-                    callback.onFailure(new Exception("Registration failed"));
+                    callback.onFailure(new Exception("Đăng ký không thành công"));
                 }
             }
 
@@ -63,7 +63,7 @@ public class RemoteDataBase {
                         callback.onFailure(new Exception(response.body().getMessage()));
                     }
                 } else {
-                    callback.onFailure(new Exception("Login failed"));
+                    callback.onFailure(new Exception("Đăng nhập không thành công"));
                 }
             }
 
@@ -209,6 +209,29 @@ public class RemoteDataBase {
 
             @Override
             public void onFailure(Call<ApiResponse<List<String>>> call, Throwable t) {
+                callback.onFailure(t);
+            }
+        });
+    }
+
+    public void getAppointmentCount(String doctorName, String date, final DatabaseCallback<Integer> callback) {
+        Call<ApiResponse<Integer>> call = apiService.getAppointmentCount(doctorName, date);
+        call.enqueue(new Callback<ApiResponse<Integer>>() {
+            @Override
+            public void onResponse(Call<ApiResponse<Integer>> call, Response<ApiResponse<Integer>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (response.body().isSuccess()) {
+                        callback.onSuccess(response.body().getData());
+                    } else {
+                        callback.onFailure(new Exception(response.body().getMessage()));
+                    }
+                } else {
+                    callback.onFailure(new Exception("Lấy số lượng lịch hẹn thất bại"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ApiResponse<Integer>> call, Throwable t) {
                 callback.onFailure(t);
             }
         });

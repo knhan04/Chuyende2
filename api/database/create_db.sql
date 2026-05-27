@@ -63,7 +63,8 @@ CREATE TABLE IF NOT EXISTS doctors (
     location VARCHAR(255) NOT NULL,
     experience VARCHAR(255) NOT NULL,
     phone VARCHAR(255) NOT NULL,
-    price VARCHAR(255) NOT NULL
+    price VARCHAR(255) NOT NULL,
+    shift VARCHAR(20) DEFAULT 'full_day' -- Cột mới: morning, afternoon, full_day
 );
 
 -- Tạo bảng health_articles
@@ -92,6 +93,19 @@ CREATE TABLE IF NOT EXISTS medicines (
     category VARCHAR(255)
 );
 
+-- Dữ liệu mẫu cho medicines
+INSERT INTO medicines (name, description, price, quantity, category) VALUES
+    ('Paracetamol', 'Thuốc giảm đau, hạ sốt', 15000.00, 100, 'Giảm đau'),
+    ('Ibuprofen', 'Thuốc chống viêm không steroid', 20000.00, 50, 'Chống viêm'),
+    ('Amoxicillin', 'Kháng sinh phổ rộng', 25000.00, 30, 'Kháng sinh'),
+    ('Vitamin C', 'Bổ sung vitamin C cho cơ thể', 10000.00, 200, 'Vitamin'),
+    ('Aspirin', 'Thuốc giảm đau và chống đông máu', 12000.00, 80, 'Giảm đau'),
+    ('Cetirizine', 'Thuốc chống dị ứng', 18000.00, 60, 'Chống dị ứng'),
+    ('Omeprazole', 'Thuốc ức chế bơm proton', 30000.00, 40, 'Tiêu hóa'),
+    ('Metformin', 'Thuốc điều trị đái tháo đường type 2', 35000.00, 25, 'Đái tháo đường'),
+    ('Loratadine', 'Thuốc chống dị ứng histamine', 16000.00, 70, 'Chống dị ứng'),
+    ('Ciprofloxacin', 'Kháng sinh quinolon', 28000.00, 35, 'Kháng sinh');
+
 -- Tạo bảng appointments
 CREATE TABLE IF NOT EXISTS appointments (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -103,6 +117,7 @@ CREATE TABLE IF NOT EXISTS appointments (
     doctor_contact VARCHAR(255) NOT NULL,
     appointment_date VARCHAR(255) NOT NULL,
     appointment_time VARCHAR(255) NOT NULL,
+    shift VARCHAR(20), -- Cột mới: morning, afternoon
     symptoms TEXT,
     fee FLOAT NOT NULL,
     status VARCHAR(50) DEFAULT 'pending',
@@ -111,30 +126,22 @@ CREATE TABLE IF NOT EXISTS appointments (
 );
 
 -- Dữ liệu mẫu
-INSERT INTO users (username, email, password, full_name, phone) VALUES
-    ('admin', 'admin@example.com', 'admin123', 'Admin User', '0901000000'),
-    ('user1', 'user1@example.com', 'password1', 'Nguyễn Văn A', '0901234567'),
-    ('user2', 'user2@example.com', 'password2', 'Trần Thị B', '0912345678');
-
-INSERT INTO cart (user_id, product_name, price, quantity, category) VALUES
-    (2, 'Gói 1: Khám sức khỏe toàn thân', 999.00, 1, 'lab'),
-    (3, 'Gói 2: Đường huyết lúc đói', 299.00, 1, 'lab');
-
-INSERT INTO orders (user_id, fullname, address, contact, pincode, order_date, order_time, amount, category) VALUES
-    (2, 'Nguyễn Văn A', '123 Đường ABC, Hà Nội', '0901234567', '100000', '2026-04-15', '10:00', 999.00, 'lab'),
-    (3, 'Trần Thị B', '456 Đường XYZ, TP Hồ Chí Minh', '0912345678', '700000', '2026-04-16', '14:30', 299.00, 'lab');
-
-INSERT INTO doctors (specialty, name, location, experience, phone, price) VALUES
-    ('Bác sĩ gia đình', 'Nguyễn Khắc Nhẫn', 'Hà Nội', '5 năm', '0335620803', '600000'),
-    ('Bác sĩ gia đình', 'Vũ Ngọc Thức', 'Nghệ An', '3 năm', '0347779999', '789000'),
-    ('Bác sĩ gia đình', 'Nguyễn Chí Đức Anh', 'Ninh Bình', '4 năm', '0335612345', '700000'),
-    ('Bác sĩ gia đình', 'Nguyễn Tuấn Anh', 'Thanh Hóa', '1 năm', '0123456789', '400000'),
-    ('Bác sĩ gia đình', 'Trần Đức Hải', 'Cao Bằng', '2 năm', '0334447777', '450000'),
-    ('Bác sĩ gia đình', 'Lê Thị Mai', 'Hải Phòng', '6 năm', '0335987654', '650000'),
-    ('Chuyên gia dinh dưỡng', 'Phạm Thanh Sơn', 'Hà Nội', '5 năm', '0335620804', '600000'),
-    ('Chuyên gia dinh dưỡng', 'Đào Trung Hiếu', 'Nghệ An', '3 năm', '0347779998', '789000'),
-    ('Nha sĩ', 'Chu Thị Lý', 'Hà Nội', '5 năm', '0335620803', '600000'),
-    ('Nha sĩ', 'Lê Hồng Thái', 'Nghệ An', '3 năm', '0347779999', '789000');
+-- Mật khẩu đã được mã hóa bcrypt chuẩn (mật khẩu là: admin123)
+INSERT INTO users (username, email, password, full_name, phone, role) VALUES
+    ('admin', 'admin@example.com', '$2a$10$XQRb53jUTR8uK534uHCCmOuBzqxFMlG9sOpE4B04QuHo7FzwjjGXS', 'Admin User', '0901000000', 'admin'),
+    ('user1', 'user1@example.com', '$2a$10$XQRb53jUTR8uK534uHCCmOuBzqxFMlG9sOpE4B04QuHo7FzwjjGXS', 'Nguyễn Văn A', '0901234567', 'user'),
+    ('user2', 'user2@example.com', '$2a$10$XQRb53jUTR8uK534uHCCmOuBzqxFMlG9sOpE4B04QuHo7FzwjjGXS', 'Trần Thị B', '0912345678', 'user');
+INSERT INTO doctors (specialty, name, location, experience, phone, price, shift) VALUES
+    ('Bác sĩ gia đình', 'Nguyễn Khắc Nhẫn', 'Hà Nội', '5 năm', '0335620803', '600000', 'morning'),
+    ('Bác sĩ gia đình', 'Vũ Ngọc Thức', 'Nghệ An', '3 năm', '0347779999', '789000', 'afternoon'),
+    ('Bác sĩ gia đình', 'Nguyễn Chí Đức Anh', 'Ninh Bình', '4 năm', '0335612345', '700000', 'full_day'),
+    ('Bác sĩ gia đình', 'Nguyễn Tuấn Anh', 'Thanh Hóa', '1 năm', '0123456789', '400000', 'morning'),
+    ('Bác sĩ gia đình', 'Trần Đức Hải', 'Cao Bằng', '2 năm', '0334447777', '450000', 'afternoon'),
+    ('Bác sĩ gia đình', 'Lê Thị Mai', 'Hải Phòng', '6 năm', '0335987654', '650000', 'full_day'),
+    ('Chuyên gia dinh dưỡng', 'Phạm Thanh Sơn', 'Hà Nội', '5 năm', '0335620804', '600000', 'morning'),
+    ('Chuyên gia dinh dưỡng', 'Đào Trung Hiếu', 'Nghệ An', '3 năm', '0347779998', '789000', 'afternoon'),
+    ('Nha sĩ', 'Chu Thị Lý', 'Hà Nội', '5 năm', '0335620803', '600000', 'morning'),
+    ('Nha sĩ', 'Lê Hồng Thái', 'Nghệ An', '3 năm', '0347779999', '789000', 'afternoon');
 
 INSERT INTO health_articles (title, summary, image) VALUES
     ('Đi bộ hàng ngày', 'Tăng cường tuần hoàn máu và giảm stress', 'health1'),
@@ -154,6 +161,6 @@ INSERT INTO lab_packages (name, details, price) VALUES
     ('Gói 6: Kiểm tra chức năng gan', 'Xét nghiệm men gan AST\nXét nghiệm men gan ALT\nXét nghiệm bilirubin toàn phần\nXét nghiệm albumin\nProtein toàn phần', 499.00),
     ('Gói 7: Kiểm tra tim mạch cơ bản', 'Xét nghiệm điện tâm đồ (ECG)\nXét nghiệm cholesterol toàn phần\nXét nghiệm triglyceride\nXét nghiệm HDL, LDL\nXét nghiệm tạo máu cơ bản', 549.00);
 
-INSERT INTO appointments (user_id, doctor_name, doctor_specialty, doctor_location, doctor_contact, appointment_date, appointment_time, symptoms, fee, status) VALUES
-    (2, 'Nguyễn Khắc Nhẫn', 'Bác sĩ gia đình', 'Hà Nội', '0335620803', '2026-04-20', '09:00', 'Đau đầu, sốt', 600.00, 'confirmed'),
-    (3, 'Chu Thị Lý', 'Nha sĩ', 'Hà Nội', '0335620803', '2026-04-21', '14:00', 'Đau răng', 600.00, 'confirmed');
+INSERT INTO appointments (user_id, doctor_name, doctor_specialty, doctor_location, doctor_contact, appointment_date, appointment_time, shift, symptoms, fee, status) VALUES
+    (2, 'Nguyễn Khắc Nhẫn', 'Bác sĩ gia đình', 'Hà Nội', '0335620803', '2026-04-20', '09:00', 'morning', 'Đau đầu, sốt', 600.00, 'confirmed'),
+    (3, 'Chu Thị Lý', 'Nha sĩ', 'Hà Nội', '0335620803', '2026-04-21', '14:00', 'afternoon', 'Đau răng', 600.00, 'confirmed');

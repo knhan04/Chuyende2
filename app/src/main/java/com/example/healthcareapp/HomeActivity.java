@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         SharedPreferences sharedPreferences = getSharedPreferences("shared_prefs", Context.MODE_PRIVATE);
         String name = sharedPreferences.getString("username","").toString();
-        Toast.makeText(getApplicationContext(),"Welcome "+name,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(),"Chào mừng "+name,Toast.LENGTH_SHORT).show();
 
         CardView exit = findViewById(R.id.card_exit);
         exit.setOnClickListener(new View.OnClickListener() {
@@ -55,7 +55,12 @@ public class HomeActivity extends AppCompatActivity {
         order_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, OrderDetailActivity.class));
+                String role = sharedPreferences.getString("role", "user");
+                if ("admin".equals(role)) {
+                    startActivity(new Intent(HomeActivity.this, AdminAppointmentsActivity.class));
+                } else {
+                    startActivity(new Intent(HomeActivity.this, OrderDetailActivity.class));
+                }
             }
         });
 

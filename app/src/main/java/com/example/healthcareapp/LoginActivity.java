@@ -52,17 +52,29 @@ public class LoginActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString("username", username);
                             editor.putString("token", loginData.getToken());
+                            
+                            // Lưu thông tin role để dùng sau này
+                            String role = (loginData.getUser() != null) ? loginData.getUser().getRole() : "user";
+                            editor.putString("role", role);
                             editor.apply();
 
-                            Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                            
+                            // CHUYỂN HƯỚNG DỰA TRÊN ROLE
+                            if ("admin".equals(role)) {
+                                Toast.makeText(LoginActivity.this, "Chào mừng Admin!", Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(LoginActivity.this, AdminDashboardActivity.class));
+                            } else {
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            }
+                            finish();
                             return;
                         }
                     }
                     String message = response.body().getMessage();
-                    Toast.makeText(LoginActivity.this, message != null ? message : "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, message != null ? message : "Tên người dùng hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
                 } else {
-                    String error = "Login failed";
+                    String error = "Đăng nhập không thành công";
                     if (response.errorBody() != null) {
                         try {
                             error += ": " + response.errorBody().string();

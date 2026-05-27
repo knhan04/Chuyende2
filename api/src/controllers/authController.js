@@ -150,4 +150,15 @@ async function updateProfile(req, res) {
   }
 }
 
-module.exports = { register, login, getProfile, updateProfile };
+async function getAllUsers(req, res) {
+    try {
+        const pool = await getPool();
+        const [rows] = await pool.execute('SELECT id, username, email, role FROM users');
+        res.json({ success: true, data: rows });
+    } catch (err) {
+        console.error('getAllUsers error:', err);
+        res.status(500).json({ success: false, message: 'Lỗi máy chủ' });
+    }
+}
+
+module.exports = { register, login, getProfile, updateProfile, getAllUsers };

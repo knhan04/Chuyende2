@@ -31,7 +31,15 @@ const getPool = async () => {
   }
 };
 
+const closePool = async () => {
+  if (pool) {
+    await pool.end();
+    console.log('Database pool closed.');
+  }
+};
+
 module.exports = {
   mysql,
-  getPool
+  getPool,
+  closePool
 };

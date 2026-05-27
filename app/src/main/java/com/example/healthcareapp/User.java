@@ -4,6 +4,7 @@ public class User {
     private String username;
     private String email;
     private String password;
+    private String role;
 
     public User() {
     }
@@ -12,6 +13,14 @@ public class User {
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = "user";
+    }
+
+    public User(String username, String email, String password, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
     // Getters and setters
@@ -37,5 +46,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

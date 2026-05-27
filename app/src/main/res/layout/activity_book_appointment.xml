@@ -24,7 +24,7 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_symptoms" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_BookApp_Shift" />
 
     <EditText
         android:id="@+id/editText_BookApp_ContactNumber"
@@ -121,6 +121,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_BookApp_tittle" />
+
+    <TextView
+        android:id="@+id/textView_BookApp_Shift"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="4dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_symptoms" />
 
     <Button
         android:id="@+id/button_BookApp_register"

@@ -12,6 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // ── Routes ──────────────────────────────────────────────────
 app.use('/api/auth',         require('./src/routes/auth'));
+app.use('/api/admin',        require('./src/routes/admin'));
 app.use('/api/doctors',      require('./src/routes/doctors'));
 app.use('/api/cart',         require('./src/routes/cart'));
 app.use('/api/orders',       require('./src/routes/orders'));

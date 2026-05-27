@@ -1,18 +1,23 @@
-const { sql, getPool } = require('../config/db');
+const { getPool } = require('../config/db');
 
 async function getAll(req, res) {
   const { search } = req.query;
   try {
     const pool = await getPool();
-    const request = pool.request();
-    let query = 'SELECT * FROM medicines';
-    if (search) {
-      request.input('search', sql.NVarChar, `%${search}%`);
-      query += ' WHERE name LIKE @search';
+    const connection = await pool.getConnection();
+    try {
+      let query = 'SELECT * FROM medicines';
+      const params = [];
+      if (search) {
+        query += ' WHERE name LIKE ?';
+        params.push(`%${search}%`);
+      }
+      query += ' ORDER BY name';
+      const [rows] = await connection.execute(query, params);
+      return res.json({ success: true, data: rows });
+    } finally {
+      connection.release();
     }
-    query += ' ORDER BY name';
-    const result = await request.query(query);
-    return res.json({ success: true, data: result.recordset });
   } catch (err) {
     console.error('medicines.getAll error:', err);
     return res.status(500).json({ success: false, message: 'Lỗi máy chủ' });
@@ -24,14 +29,16 @@ async function getById(req, res) {
   if (isNaN(id)) return res.status(400).json({ success: false, message: 'ID không hợp lệ' });
   try {
     const pool = await getPool();
-    const result = await pool.request()
-      .input('id', sql.Int, id)
-      .query('SELECT * FROM medicines WHERE id = @id');
-
-    if (result.recordset.length === 0) {
-      return res.status(404).json({ success: false, message: 'Không tìm thấy thuốc' });
+    const connection = await pool.getConnection();
+    try {
+      const [rows] = await connection.execute('SELECT * FROM medicines WHERE id = ?', [id]);
+      if (rows.length === 0) {
+        return res.status(404).json({ success: false, message: 'Không tìm thấy thuốc' });
+      }
+      return res.json({ success: true, data: rows[0] });
+    } finally {
+      connection.release();
     }
-    return res.json({ success: true, data: result.recordset[0] });
   } catch (err) {
     console.error('medicines.getById error:', err);
     return res.status(500).json({ success: false, message: 'Lỗi máy chủ' });
@@ -45,25 +52,22 @@ async function create(req, res) {
   }
   try {
     const pool = await getPool();
-    await pool.request()
-      .input('name',        sql.NVarChar, name)
-      .input('description', sql.NVarChar, description || '')
-      .input('price',       sql.Float,    price)
-      .input('quantity',    sql.Int,      quantity || 0)
-      .input('category',    sql.NVarChar, category || '')
-      .query(`
-        INSERT INTO medicines (name, description, price, quantity, category)
-        VALUES (@name, @description, @price, @quantity, @category)
-      `);
-    
-    const idResult = await pool.request().query('SELECT LAST_INSERT_ID() as id');
-    const medicineId = idResult.recordset[0]['LAST_INSERT_ID()'] || idResult.recordset[0].id;
-    
-    return res.status(201).json({ 
-      success: true, 
-      message: 'Tạo thuốc thành công',
-      data: { id: medicineId, name, description, price, quantity, category } 
-    });
+    const connection = await pool.getConnection();
+    try {
+      const [result] = await connection.execute(
+        `INSERT INTO medicines (name, description, price, quantity, category)
+         VALUES (?, ?, ?, ?, ?)`,
+        [name, description || '', price, quantity || 0, category || '']
+      );
+
+      return res.status(201).json({
+        success: true,
+        message: 'Tạo thuốc thành công',
+        data: { id: result.insertId, name, description, price, quantity, category }
+      });
+    } finally {
+      connection.release();
+    }
   } catch (err) {
     console.error('medicines.create error:', err);
     return res.status(500).json({ success: false, message: 'Lỗi máy chủ' });
@@ -76,38 +80,28 @@ async function update(req, res) {
   const { name, description, price, quantity, category } = req.body;
   try {
     const pool = await getPool();
-    
-    const updates = [];
-    const request = pool.request().input('id', sql.Int, id);
-    
-    if (name !== undefined) {
-      request.input('name', sql.NVarChar, name);
-      updates.push('name = @name');
-    }
-    if (description !== undefined) {
-      request.input('description', sql.NVarChar, description);
-      updates.push('description = @description');
-    }
-    if (price !== undefined) {
-      request.input('price', sql.Float, price);
-      updates.push('price = @price');
-    }
-    if (quantity !== undefined) {
-      request.input('quantity', sql.Int, quantity);
-      updates.push('quantity = @quantity');
-    }
-    if (category !== undefined) {
-      request.input('category', sql.NVarChar, category);
-      updates.push('category = @category');
-    }
+    const connection = await pool.getConnection();
+    try {
+      const updates = [];
+      const params = [];
 
-    if (updates.length === 0) {
-      return res.status(400).json({ success: false, message: 'Không có trường nào để cập nhật' });
-    }
+      if (name !== undefined) { updates.push('name = ?'); params.push(name); }
+      if (description !== undefined) { updates.push('description = ?'); params.push(description); }
+      if (price !== undefined) { updates.push('price = ?'); params.push(price); }
+      if (quantity !== undefined) { updates.push('quantity = ?'); params.push(quantity); }
+      if (category !== undefined) { updates.push('category = ?'); params.push(category); }
 
-    const query = `UPDATE medicines SET ${updates.join(', ')} WHERE id = @id`;
-    await request.query(query);
-    return res.json({ success: true, message: 'Cập nhật thành công' });
+      if (updates.length === 0) {
+        return res.status(400).json({ success: false, message: 'Không có trường nào để cập nhật' });
+      }
+
+      params.push(id);
+      const query = `UPDATE medicines SET ${updates.join(', ')} WHERE id = ?`;
+      await connection.execute(query, params);
+      return res.json({ success: true, message: 'Cập nhật thành công' });
+    } finally {
+      connection.release();
+    }
   } catch (err) {
     console.error('medicines.update error:', err);
     return res.status(500).json({ success: false, message: 'Lỗi máy chủ' });
